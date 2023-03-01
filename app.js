@@ -9,7 +9,7 @@ const app = express();
 const server = createServer(app);
 const io = new Server(server, {
     cors: {
-        origin: ["https://wee-meet.netlify.app", "http://localhost:5173"],
+        origin: ["https://wee-meet.vercel.app", "http://localhost:5173"],
         credentials: true,
         preflightContinue: true,
         methods: ["GET", "POST"],
@@ -27,7 +27,7 @@ if (process.env.NODE_ENV === "development") {
 } else {
     app.use(
         cors({
-            origin: "https://wee-meet.netlify.app",
+            origin: "https://wee-meet.vercel.app",
             credentials: true,
             preflightContinue: true,
         })

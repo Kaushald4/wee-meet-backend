@@ -50,6 +50,7 @@ const socketIdToName = new Map();
 const meetingSessions = {};
 
 io.on("connection", (socket) => {
+    console.log("New User Joined ", socket.id);
     socket.on("join:meeting", (data) => {
         const { name, meetingCode } = data;
         nameToSocketId.set(name, socket.id);

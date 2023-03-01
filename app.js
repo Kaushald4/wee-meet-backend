@@ -12,6 +12,7 @@ const io = new Server(server, {
         origin: "https://wee-meet.netlify.app",
         credentials: true,
         preflightContinue: true,
+        methods: ["GET", "POST"],
         allowedHeaders: ["access-control-allow-origin"],
     },
 });

@@ -20,7 +20,7 @@ const sendJwtToken = (user, res) => {
 
     //set token in cookie
     res.status(200)
-        .cookie("token", `Bearer ${jwtToken}`, cookieOptions)
+        // .cookie("token", `Bearer ${jwtToken}`, cookieOptions)
         .json({ success: true, data: { ...user._doc, jwtToken } });
 };
 

@@ -9,11 +9,7 @@ const app = express();
 const server = createServer(app);
 const io = new Server(server, {
     cors: {
-        origin: ["https://wee-meet.vercel.app", "http://localhost:5173"],
-        credentials: true,
-        preflightContinue: true,
-        methods: ["GET", "POST"],
-        allowedHeaders: ["access-control-allow-origin"],
+        origin: "*",
     },
 });
 
@@ -22,17 +18,18 @@ const PORT = 4000;
 import { connectDB } from "./config/db.js";
 
 // app middleware
-if (process.env.NODE_ENV === "development") {
-    app.use(cors({ origin: "http://localhost:5173", credentials: true }));
-} else {
-    app.use(
-        cors({
-            origin: "https://wee-meet.vercel.app",
-            credentials: true,
-            preflightContinue: true,
-        })
-    );
-}
+// if (process.env.NODE_ENV === "development") {
+//     app.use(cors({ origin: "http://localhost:5173", credentials: true }));
+// } else {
+//     app.use(
+//         cors({
+//             origin: "https://wee-meet.vercel.app",
+//             credentials: true,
+//             preflightContinue: true,
+//         })
+//     );
+// }
+app.use(cors());
 app.use(express.json());
 app.use(cookieParser());
 

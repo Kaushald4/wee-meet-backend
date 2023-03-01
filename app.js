@@ -9,7 +9,7 @@ const app = express();
 const server = createServer(app);
 const io = new Server(server, {
     cors: {
-        origin: "https://wee-meet.netlify.app",
+        origin: ["https://wee-meet.netlify.app", "http://localhost:5173"],
         credentials: true,
         preflightContinue: true,
         methods: ["GET", "POST"],
@@ -23,9 +23,7 @@ import { connectDB } from "./config/db.js";
 
 // app middleware
 if (process.env.NODE_ENV === "development") {
-    app.use(
-        cors({ origin: "https://wee-meet.netlify.app", credentials: true })
-    );
+    app.use(cors({ origin: "http://localhost:5173", credentials: true }));
 } else {
     app.use(
         cors({

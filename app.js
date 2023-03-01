@@ -19,17 +19,9 @@ import { connectDB } from "./config/db.js";
 
 // app middleware
 if (process.env.NODE_ENV === "development") {
-    app.use(
-        cors({ origin: "https://wee-meet.vercel.app/", credentials: true })
-    );
+    app.use(cors({ origin: "*" }));
 } else {
-    app.use(
-        cors({
-            origin: "https://wee-meet.vercel.app/",
-            credentials: true,
-            preflightContinue: true,
-        })
-    );
+    app.use(cors({ origin: "*" }));
 }
 app.use(express.json());
 app.use(cookieParser());

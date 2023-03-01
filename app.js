@@ -14,7 +14,11 @@ const PORT = 4000;
 import { connectDB } from "./config/db.js";
 
 // app middleware
-app.use(cors({ origin: "http://localhost:5173", credentials: true }));
+if (process.env.NODE_ENV === "development") {
+    app.use(cors({ origin: "http://localhost:5173", credentials: true }));
+} else {
+    app.use(cors({ origin: "https://wee-meet.vercel.app", credentials: true }));
+}
 app.use(express.json());
 app.use(cookieParser());
 

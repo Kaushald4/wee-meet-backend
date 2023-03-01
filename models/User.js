@@ -36,7 +36,7 @@ UserSchema.pre("save", async function (next) {
 UserSchema.methods = {
     generateJWTToken: function () {
         const token = JWT.sign({ id: this._id }, config.JWT_SECRET, {
-            expiresIn: "20d",
+            expiresIn: "29d",
         });
         return token;
     },

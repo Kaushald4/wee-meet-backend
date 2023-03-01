@@ -7,7 +7,9 @@ import cors from "cors";
 import cookieParser from "cookie-parser";
 const app = express();
 const server = createServer(app);
-const io = new Server(server, { cors: true });
+const io = new Server(server, {
+    cors: { origin: "https://wee-meet.vercel.app" },
+});
 
 const PORT = 4000;
 

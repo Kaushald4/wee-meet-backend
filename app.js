@@ -11,7 +11,10 @@ const io = new Server(server, {
     cors: {
         origin: "https://wee-meet.vercel.app",
         methods: ["GET", "PUT", "POST"],
+        transports: ["websocket", "polling"],
+        credentials: true,
     },
+    allowEIO3: true,
 });
 
 const PORT = 4000;

@@ -22,12 +22,12 @@ import { connectDB } from "./config/db.js";
 // app middleware
 if (process.env.NODE_ENV === "development") {
     app.use(
-        cors({ origin: "https://wee-meet.netlify.app/", credentials: true })
+        cors({ origin: "https://wee-meet.netlify.app", credentials: true })
     );
 } else {
     app.use(
         cors({
-            origin: "https://wee-meet.netlify.app/",
+            origin: "https://wee-meet.netlify.app",
             credentials: true,
             preflightContinue: true,
         })

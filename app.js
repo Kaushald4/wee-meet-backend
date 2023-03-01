@@ -9,7 +9,7 @@ const app = express();
 const server = createServer(app);
 const io = new Server(server, {
     cors: {
-        origin: "https://wee-meet.vercel.app/",
+        origin: "https://wee-meet.netlify.app/",
     },
 });
 
@@ -19,9 +19,17 @@ import { connectDB } from "./config/db.js";
 
 // app middleware
 if (process.env.NODE_ENV === "development") {
-    app.use(cors({ origin: "*" }));
+    app.use(
+        cors({ origin: "https://wee-meet.netlify.app/", credentials: true })
+    );
 } else {
-    app.use(cors({ origin: "*" }));
+    app.use(
+        cors({
+            origin: "https://wee-meet.netlify.app/",
+            credentials: true,
+            preflightContinue: true,
+        })
+    );
 }
 app.use(express.json());
 app.use(cookieParser());

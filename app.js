@@ -9,7 +9,7 @@ const app = express();
 const server = createServer(app);
 const io = new Server(server, {
     cors: {
-        origin: "https://wee-meet.netlify.app/",
+        origin: "https://wee-meet.netlify.app:443",
         credentials: true,
         preflightContinue: true,
     },

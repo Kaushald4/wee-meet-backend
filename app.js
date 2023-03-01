@@ -9,12 +9,8 @@ const app = express();
 const server = createServer(app);
 const io = new Server(server, {
     cors: {
-        origin: "https://wee-meet.vercel.app",
-        methods: ["GET", "PUT", "POST"],
-        transports: ["websocket", "polling"],
-        credentials: true,
+        origin: "*",
     },
-    allowEIO3: true,
 });
 
 const PORT = 4000;

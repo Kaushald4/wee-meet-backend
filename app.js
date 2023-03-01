@@ -13,7 +13,6 @@ const io = new Server(server, {
         credentials: true,
         preflightContinue: true,
         methods: ["GET", "POST"],
-        transports: ["websocket", "polling"],
         allowedHeaders: ["access-control-allow-origin"],
     },
 });

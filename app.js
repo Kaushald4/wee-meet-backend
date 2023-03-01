@@ -8,7 +8,10 @@ import cookieParser from "cookie-parser";
 const app = express();
 const server = createServer(app);
 const io = new Server(server, {
-    cors: { origin: "https://wee-meet.vercel.app" },
+    cors: {
+        origin: "https://wee-meet.vercel.app",
+        methods: ["GET", "PUT", "POST"],
+    },
 });
 
 const PORT = 4000;

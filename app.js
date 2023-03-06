@@ -43,14 +43,15 @@ app.use("/api/v1", meetingRoutes);
 
 const nameToSocketId = new Map();
 const socketIdToName = new Map();
-const meetingSessions = {};
+const socketIdToMeetingCode = new Map();
 
 io.on("connection", (socket) => {
-    console.log("New User Joined ", socket.id);
+    // console.log("New User Joined ", socket.id);
     socket.on("join:meeting", (data) => {
         const { name, meetingCode } = data;
         nameToSocketId.set(name, socket.id);
         socketIdToName.set(socket.id, name);
+        socketIdToMeetingCode.set(socket.id, meetingCode);
         socket.join(meetingCode);
         socket.to(meetingCode).emit("user:joined", { name });
         socket.emit("joined", { name });
@@ -58,7 +59,12 @@ io.on("connection", (socket) => {
 
     socket.on("join:request", (data) => {
         const { name, toUser, meetingCode } = data;
-        io.to(nameToSocketId.get(toUser)).emit("incoming:join:request", {
+        let socketId = nameToSocketId.get(toUser);
+        if (nameToSocketId.get(name)) {
+            socket.emit("name:taken", { message: "Choose Different Name" });
+            return;
+        }
+        io.to(socketId).emit("incoming:join:request", {
             name,
             socketId: socket.id,
         });
@@ -67,6 +73,11 @@ io.on("connection", (socket) => {
     socket.on("join:request:accept", (data) => {
         const { name, socketId } = data;
         io.to(socketId).emit("join:request:accept");
+    });
+
+    socket.on("join:request:reject", (data) => {
+        const { name, socketId } = data;
+        io.to(socketId).emit("join:request:reject");
     });
 
     // spd offer exchange
@@ -102,6 +113,14 @@ io.on("connection", (socket) => {
         socket
             .to(nameToSocketId.get(toUser))
             .emit("icecandidate", { candidate });
+    });
+
+    socket.on("disconnect", () => {
+        const meetingCode = socketIdToMeetingCode.get(socket.id);
+        const name = socketIdToName.get(socket.id);
+        io.to(meetingCode).emit("user-disconnect", { name });
+        socketIdToName.delete(socket.id);
+        nameToSocketId.delete(name);
     });
 });
 
